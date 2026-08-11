@@ -59,8 +59,9 @@ export function EmissionBarChart() {
           dataKey="count"
           radius={[3, 3, 0, 0]}
           style={{ cursor: 'pointer' }}
-          onClick={(d: { id?: number }) => {
-            if (d.id != null) setProyecto(d.id === filters.proyectoId ? null : d.id)
+          onClick={(d) => {
+            const id = (d as { id?: number }).id
+            if (id != null) setProyecto(id === filters.proyectoId ? null : id)
           }}
         >
           {chartData.map((entry) => (

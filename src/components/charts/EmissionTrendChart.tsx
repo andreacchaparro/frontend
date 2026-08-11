@@ -82,7 +82,7 @@ export function EmissionTrendChart() {
               borderRadius: 6,
             }}
             labelStyle={{ color: isDark ? '#e2e8f0' : '#0f172a' }}
-            formatter={(v: number) => [`${v} ${formatUnidad(unidad)}`, 'CO₂']}
+            formatter={(v) => [`${v} ${formatUnidad(unidad)}`, 'CO₂']}
           />
           <Line
             type="monotone"
