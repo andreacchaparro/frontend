@@ -21,7 +21,7 @@ export function Dashboard() {
           <EmissionSummary />
         </Card>
 
-        <Card title="Por departamento">
+        <Card title="Por proyecto">
           <EmissionBarChart />
         </Card>
       </aside>
@@ -34,10 +34,10 @@ export function Dashboard() {
         <div className="absolute bottom-0 left-0 right-0 bg-panel/90 backdrop-blur-sm border-t border-border">
           <button
             onClick={() => setTrendOpen((o) => !o)}
-            className="w-full flex items-center justify-between px-4 py-2 text-xs text-slate-400 hover:text-white transition-colors"
+            className="w-full flex items-center justify-between px-4 py-2 text-xs text-fg-muted hover:text-fg transition-colors"
           >
             <span className="font-semibold uppercase tracking-wider">
-              Tendencia histórica (MtCO₂e)
+              Tendencia histórica (mediciones crudas)
             </span>
             <span className="text-base">{trendOpen ? '▼' : '▲'}</span>
           </button>

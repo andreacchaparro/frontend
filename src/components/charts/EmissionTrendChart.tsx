@@ -1,41 +1,98 @@
+import { useMemo, useState, useEffect } from 'react'
 import {
   LineChart,
   Line,
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts'
-import { useTrend } from '@/hooks/useGreenhouseData'
-import { GAS_COLORS } from '@/utils/formatters'
+import { useSeries } from '@/hooks/useSeries'
+import { useThemeStore } from '@/store/useThemeStore'
+import { GAS_COLORS, formatUnidad } from '@/utils/formatters'
 
 export function EmissionTrendChart() {
-  const { data = [], isLoading } = useTrend()
+  const { data: series, isLoading } = useSeries()
+  const isDark = useThemeStore((s) => s.theme === 'dark')
+  const tickColor = isDark ? '#94a3b8' : '#64748b'
+
+  const unidades = useMemo(
+    () => [...new Set(series?.resultados.map((r) => r.unidad) ?? [])].sort(),
+    [series]
+  )
+
+  const [unidad, setUnidad] = useState<string>('')
+
+  useEffect(() => {
+    if (!unidades.includes(unidad)) setUnidad(unidades[0] ?? '')
+  }, [unidades, unidad])
+
+  const data = useMemo(
+    () =>
+      (series?.resultados ?? [])
+        .filter((r) => r.unidad === unidad)
+        .map((r) => ({ fecha: r.fecha, valor: r.valor }))
+        .sort((a, b) => a.fecha.localeCompare(b.fecha)),
+    [series, unidad]
+  )
 
   if (isLoading) {
     return (
-      <div className="h-36 flex items-center justify-center text-slate-500 text-sm">
+      <div className="h-36 flex items-center justify-center text-fg-subtle text-sm">
         Cargando tendencia…
       </div>
     )
   }
 
+  if (!unidades.length) {
+    return (
+      <div className="h-36 flex items-center justify-center text-fg-subtle text-sm">
+        Sin datos
+      </div>
+    )
+  }
+
   return (
-    <ResponsiveContainer width="100%" height={150}>
-      <LineChart data={data} margin={{ top: 4, right: 16, left: -24, bottom: 0 }}>
-        <XAxis dataKey="year" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-        <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} />
-        <Tooltip
-          contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 6 }}
-          labelStyle={{ color: '#e2e8f0' }}
-          formatter={(v) => [`${v} MtCO₂e`]}
-        />
-        <Legend wrapperStyle={{ fontSize: 11, color: '#94a3b8' }} />
-        <Line type="monotone" dataKey="CO2" stroke={GAS_COLORS.CO2} strokeWidth={2} dot={false} />
-        <Line type="monotone" dataKey="CH4" stroke={GAS_COLORS.CH4} strokeWidth={2} dot={false} />
-        <Line type="monotone" dataKey="N2O" stroke={GAS_COLORS.N2O} strokeWidth={2} dot={false} />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className="flex flex-col gap-2">
+      {unidades.length > 1 && (
+        <div className="flex gap-1 justify-end">
+          {unidades.map((u) => (
+            <button
+              key={u}
+              onClick={() => setUnidad(u)}
+              className={`px-2 py-0.5 rounded text-xs font-medium transition-colors ${
+                u === unidad
+                  ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900'
+                  : 'text-fg-muted hover:text-fg border border-border'
+              }`}
+            >
+              {formatUnidad(u)}
+            </button>
+          ))}
+        </div>
+      )}
+      <ResponsiveContainer width="100%" height={130}>
+        <LineChart data={data} margin={{ top: 4, right: 16, left: -24, bottom: 0 }}>
+          <XAxis dataKey="fecha" tick={{ fill: tickColor, fontSize: 11 }} />
+          <YAxis tick={{ fill: tickColor, fontSize: 11 }} />
+          <Tooltip
+            contentStyle={{
+              background: isDark ? '#1e293b' : '#ffffff',
+              border: `1px solid ${isDark ? '#334155' : '#e2e8e4'}`,
+              borderRadius: 6,
+            }}
+            labelStyle={{ color: isDark ? '#e2e8f0' : '#0f172a' }}
+            formatter={(v: number) => [`${v} ${formatUnidad(unidad)}`, 'CO₂']}
+          />
+          <Line
+            type="monotone"
+            dataKey="valor"
+            stroke={GAS_COLORS.CO2}
+            strokeWidth={2}
+            dot={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   )
 }

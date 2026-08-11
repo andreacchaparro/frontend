@@ -1,6 +1,7 @@
 interface Option {
   value: string
   label: string
+  disabled?: boolean
 }
 
 interface Props {
@@ -13,14 +14,14 @@ interface Props {
 export function Select({ label, value, options, onChange }: Props) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs text-slate-400 font-medium">{label}</label>
+      <label className="text-xs text-fg-muted font-medium">{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-surface border border-border text-slate-200 text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+        className="bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
+          <option key={opt.value} value={opt.value} disabled={opt.disabled}>
             {opt.label}
           </option>
         ))}
