@@ -8,11 +8,13 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { useSeries } from '@/hooks/useSeries'
+import { useAppStore } from '@/store/useAppStore'
 import { useThemeStore } from '@/store/useThemeStore'
 import { GAS_COLORS, formatUnidad } from '@/utils/formatters'
 
 export function EmissionTrendChart() {
   const { data: series, isLoading } = useSeries()
+  const gas = useAppStore((s) => s.filters.gas)
   const isDark = useThemeStore((s) => s.theme === 'dark')
   const tickColor = isDark ? '#94a3b8' : '#64748b'
 
@@ -82,12 +84,12 @@ export function EmissionTrendChart() {
               borderRadius: 6,
             }}
             labelStyle={{ color: isDark ? '#e2e8f0' : '#0f172a' }}
-            formatter={(v) => [`${v} ${formatUnidad(unidad)}`, 'CO₂']}
+            formatter={(v) => [`${v} ${formatUnidad(unidad)}`, gas]}
           />
           <Line
             type="monotone"
             dataKey="valor"
-            stroke={GAS_COLORS.CO2}
+            stroke={GAS_COLORS[gas]}
             strokeWidth={2}
             dot={false}
           />

@@ -1,4 +1,11 @@
-import type { SitiosFeatureCollection, SerieResponse, SeriesFilters } from '@/types'
+import type {
+  SitiosFeatureCollection,
+  SerieResponse,
+  SeriesFilters,
+  GeoNivel,
+  GeoResumenFeatureCollection,
+  GeoResumenFilters,
+} from '@/types'
 
 const GEO_API_BASE = import.meta.env.VITE_GEO_API_BASE_URL ?? 'http://localhost:8000/api/geo'
 
@@ -8,6 +15,20 @@ export const geoService = {
     const res = await fetch(url)
     if (!res.ok) throw new Error(`API error ${res.status}: ${url}`)
     return res.json() as Promise<SitiosFeatureCollection>
+  },
+
+  getResumen: async (
+    nivel: GeoNivel,
+    filters: GeoResumenFilters = {}
+  ): Promise<GeoResumenFeatureCollection> => {
+    const params = new URLSearchParams({ nivel })
+    Object.entries(filters).forEach(([k, v]) => {
+      if (v != null) params.set(k, String(v))
+    })
+    const url = `${GEO_API_BASE}/resumen/?${params.toString()}`
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`API error ${res.status}: ${url}`)
+    return res.json() as Promise<GeoResumenFeatureCollection>
   },
 
   getSeries: async (filters: SeriesFilters = {}): Promise<SerieResponse> => {

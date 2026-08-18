@@ -1,14 +1,28 @@
+import { useMemo } from 'react'
 import { useSitios } from '@/hooks/useSitios'
 import { useSeries } from '@/hooks/useSeries'
 import { useAppStore } from '@/store/useAppStore'
 import { GAS_COLORS } from '@/utils/formatters'
+import type { GasType } from '@/types'
 
 const GAS_LIST = ['CO2', 'CH4', 'N2O'] as const
 
 export function EmissionSummary() {
   const { data: sitios } = useSitios()
-  const { data: series, isLoading } = useSeries()
+  // Total combinado (todos los gases), independiente del gas seleccionado
+  // en el filtro -ese filtro solo afecta al mapa y la gráfica de tendencia-.
+  const { data: series, isLoading } = useSeries({ gas: undefined })
   const { filters } = useAppStore()
+
+  const muestrasPorGas = useMemo(() => {
+    const totales: Partial<Record<GasType, number>> = {}
+    sitios?.features.forEach((f) => {
+      Object.entries(f.properties.resumen_por_gas ?? {}).forEach(([gas, resumen]) => {
+        totales[gas as GasType] = (totales[gas as GasType] ?? 0) + resumen.total_muestras
+      })
+    })
+    return totales
+  }, [sitios])
 
   const proyecto = filters.proyectoId
     ? sitios?.features
@@ -40,7 +54,7 @@ export function EmissionSummary() {
 
       <div className="grid grid-cols-3 gap-2">
         {GAS_LIST.map((gas) => {
-          const count = gas === 'CO2' ? totalMuestras : null
+          const count = muestrasPorGas[gas] ?? null
           return (
             <div key={gas} className="bg-surface rounded-md p-2 text-center border border-border">
               <p className="text-xs font-semibold mb-1" style={{ color: GAS_COLORS[gas] }}>

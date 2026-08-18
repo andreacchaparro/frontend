@@ -6,7 +6,7 @@ export const GAS_COLORS: Record<string, string> = {
 
 export const GAS_LABELS: Record<string, string> = {
   CO2: 'CO₂ — Dióxido de carbono',
-  CH4: 'CH₄ — Metano (próximamente)',
+  CH4: 'CH₄ — Metano',
   N2O: 'N₂O — Óxido nitroso (próximamente)',
 }
 
