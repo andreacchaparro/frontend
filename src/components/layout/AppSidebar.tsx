@@ -1,0 +1,56 @@
+import { NavLink } from 'react-router-dom'
+
+const ITEMS = [
+  { to: '/mapas', icon: '🗺️', label: 'Mapa' },
+  { to: '/dashboard', icon: '📊', label: 'Indicadores' },
+  { to: '/reportar', icon: '📝', label: 'Reportar' },
+  { to: '/insights', icon: '🤖', label: 'Insights' },
+]
+
+const SOON_ITEMS = [
+  { icon: '📡', label: 'Sensores' },
+  { icon: '🧩', label: 'Capas' },
+  { icon: '⬇️', label: 'Descargas' },
+  { icon: '⭐', label: 'Favoritos' },
+]
+
+export function AppSidebar() {
+  return (
+    <aside className="w-16 shrink-0 bg-panel border-r border-border flex flex-col items-center py-4 gap-1">
+      {ITEMS.map((item) => (
+        <NavLink
+          key={item.to}
+          to={item.to}
+          title={item.label}
+          className={({ isActive }) =>
+            `w-12 h-12 flex flex-col items-center justify-center rounded-lg text-[10px] font-medium gap-0.5 transition-colors ${
+              isActive
+                ? 'bg-green-700/10 text-green-700 dark:text-green-400'
+                : 'text-fg-muted hover:bg-surface hover:text-fg'
+            }`
+          }
+        >
+          <span className="text-base" aria-hidden>
+            {item.icon}
+          </span>
+          {item.label}
+        </NavLink>
+      ))}
+
+      <div className="w-8 border-t border-border my-2" />
+
+      {SOON_ITEMS.map((item) => (
+        <div
+          key={item.label}
+          title={`${item.label} — próximamente`}
+          className="w-12 h-12 flex flex-col items-center justify-center rounded-lg text-[10px] font-medium gap-0.5 text-fg-subtle opacity-50 cursor-not-allowed"
+        >
+          <span className="text-base" aria-hidden>
+            {item.icon}
+          </span>
+          {item.label}
+        </div>
+      ))}
+    </aside>
+  )
+}

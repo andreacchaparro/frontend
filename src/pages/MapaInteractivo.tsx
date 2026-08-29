@@ -8,7 +8,7 @@ import { Card } from '@/components/common/Card'
 import { SiteDetailPanel } from '@/components/detalle/SiteDetailPanel'
 import type { SitioFeature } from '@/types'
 
-export function Dashboard() {
+export function MapaInteractivo() {
   const [trendOpen, setTrendOpen] = useState(true)
   const [selectedSitio, setSelectedSitio] = useState<SitioFeature | null>(null)
 

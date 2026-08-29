@@ -1,6 +1,13 @@
 import { useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Dashboard } from '@/pages/Dashboard'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AppLayout } from '@/components/layout/AppLayout'
+import { Home } from '@/pages/Home'
+import { MapaInteractivo } from '@/pages/MapaInteractivo'
+import { DashboardIndicadores } from '@/pages/DashboardIndicadores'
+import { Participacion } from '@/pages/Participacion'
+import { InsightsIA } from '@/pages/InsightsIA'
+import { Educacion } from '@/pages/Educacion'
 import { useThemeStore } from '@/store/useThemeStore'
 
 const queryClient = new QueryClient({
@@ -13,7 +20,7 @@ const queryClient = new QueryClient({
 })
 
 export default function App() {
-  const { theme, toggleTheme } = useThemeStore()
+  const { theme } = useThemeStore()
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -21,33 +28,18 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-surface text-fg flex flex-col">
-        {/* navbar */}
-        <header className="h-14 shrink-0 bg-panel border-b border-border flex items-center px-6 gap-3">
-          <span className="text-xl" aria-hidden>
-            🌿
-          </span>
-          <div>
-            <h1 className="text-sm font-bold tracking-wide uppercase text-green-800 dark:text-green-400 leading-none">
-              Colflux
-            </h1>
-            <p className="text-xs text-fg-muted leading-none mt-0.5">
-              Gases de Efecto Invernadero · Colombia
-            </p>
-          </div>
-          <div className="ml-auto">
-            <button
-              onClick={toggleTheme}
-              className="text-xs bg-surface border border-border text-fg-muted hover:text-fg px-3 py-1.5 rounded-full font-medium transition-colors"
-              aria-label="Cambiar tema"
-            >
-              {theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro'}
-            </button>
-          </div>
-        </header>
-
-        <Dashboard />
-      </div>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <AppLayout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/mapas" element={<MapaInteractivo />} />
+            <Route path="/dashboard" element={<DashboardIndicadores />} />
+            <Route path="/reportar" element={<Participacion />} />
+            <Route path="/insights" element={<InsightsIA />} />
+            <Route path="/educacion" element={<Educacion />} />
+          </Routes>
+        </AppLayout>
+      </BrowserRouter>
     </QueryClientProvider>
   )
 }

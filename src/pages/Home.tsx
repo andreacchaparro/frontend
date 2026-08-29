@@ -1,0 +1,109 @@
+import { Link } from 'react-router-dom'
+
+const FEATURES = [
+  { icon: '🔬', title: 'Ciencia', desc: 'Datos confiables y abiertos' },
+  { icon: '🤝', title: 'Comunidad', desc: 'Participación ciudadana' },
+  { icon: '💡', title: 'Tecnología', desc: 'Inteligencia para la decisión' },
+]
+
+export function Home() {
+  return (
+    <div className="flex-1 flex flex-col">
+      <section className="relative overflow-hidden bg-gradient-to-br from-green-50 to-teal-50 dark:from-slate-900 dark:to-slate-800">
+        <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-fg leading-tight">
+              Conectamos datos, naturaleza y comunidades para un futuro sostenible
+            </h1>
+            <p className="mt-5 text-fg-muted text-lg leading-relaxed">
+              Observa, mide y entiende el carbono en páramos y humedales de Colombia.
+            </p>
+            <div className="mt-8 flex gap-3">
+              <Link
+                to="/mapas"
+                className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-full font-semibold transition-colors"
+              >
+                Explorar Mapas
+              </Link>
+              <Link
+                to="/reportar"
+                className="bg-panel border border-border text-fg px-6 py-3 rounded-full font-semibold hover:bg-surface transition-colors"
+              >
+                Reportar información
+              </Link>
+            </div>
+
+            <div className="mt-12 grid grid-cols-3 gap-4">
+              {FEATURES.map((f) => (
+                <div key={f.title} className="flex flex-col items-center text-center gap-1">
+                  <span className="text-2xl" aria-hidden>
+                    {f.icon}
+                  </span>
+                  <p className="text-sm font-semibold text-fg">{f.title}</p>
+                  <p className="text-xs text-fg-muted">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative h-80 md:h-[420px] rounded-2xl overflow-hidden bg-gradient-to-b from-green-200 via-green-400 to-green-700 dark:from-green-900 dark:via-green-800 dark:to-green-950 flex items-center justify-center shadow-lg">
+            <span className="text-8xl drop-shadow" aria-hidden>
+              🏔️
+            </span>
+            <span className="absolute top-8 left-10 text-3xl" aria-hidden>
+              🌫️
+            </span>
+            <span className="absolute bottom-10 right-12 text-3xl" aria-hidden>
+              🌿
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-6 w-full">
+        <Link
+          to="/mapas"
+          className="bg-panel border border-border rounded-xl p-6 hover:border-green-600 transition-colors group"
+        >
+          <span className="text-2xl" aria-hidden>
+            🗺️
+          </span>
+          <h3 className="mt-3 font-semibold text-fg group-hover:text-green-700 dark:group-hover:text-green-400">
+            Mapa interactivo
+          </h3>
+          <p className="mt-1 text-sm text-fg-muted">
+            Explora sitios, capas y niveles de carbono almacenado por región.
+          </p>
+        </Link>
+        <Link
+          to="/dashboard"
+          className="bg-panel border border-border rounded-xl p-6 hover:border-green-600 transition-colors group"
+        >
+          <span className="text-2xl" aria-hidden>
+            📊
+          </span>
+          <h3 className="mt-3 font-semibold text-fg group-hover:text-green-700 dark:group-hover:text-green-400">
+            Dashboard de indicadores
+          </h3>
+          <p className="mt-1 text-sm text-fg-muted">
+            Resúmenes, tendencias y distribución de datos de carbono.
+          </p>
+        </Link>
+        <Link
+          to="/reportar"
+          className="bg-panel border border-border rounded-xl p-6 hover:border-green-600 transition-colors group"
+        >
+          <span className="text-2xl" aria-hidden>
+            📝
+          </span>
+          <h3 className="mt-3 font-semibold text-fg group-hover:text-green-700 dark:group-hover:text-green-400">
+            Participación ciudadana
+          </h3>
+          <p className="mt-1 text-sm text-fg-muted">
+            Reporta información desde tu territorio y ayuda a cuidar los ecosistemas.
+          </p>
+        </Link>
+      </section>
+    </div>
+  )
+}

@@ -18,5 +18,7 @@ export const UNIDAD_LABELS: Record<string, string> = {
 
 export const formatUnidad = (unidad: string): string => UNIDAD_LABELS[unidad] ?? unidad
 
-export const formatValor = (valor: number, unidad: string): string =>
-  `${valor.toLocaleString('es-CO', { maximumFractionDigits: 3 })} ${formatUnidad(unidad)}`
+export const formatValor = (valor: number | null, unidad: string): string =>
+  valor == null
+    ? 'Sin datos'
+    : `${valor.toLocaleString('es-CO', { maximumFractionDigits: 3 })} ${formatUnidad(unidad)}`

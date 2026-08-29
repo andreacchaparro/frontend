@@ -58,7 +58,7 @@ export interface SitioUnidadMuestreo {
 
 export interface UltimaMedicionCO2 {
   fecha: string
-  valor: number
+  valor: number | null
   unidad: string
 }
 
