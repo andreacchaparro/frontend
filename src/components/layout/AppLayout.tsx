@@ -5,7 +5,7 @@ import { Footer } from './Footer'
 import { AppSidebar } from './AppSidebar'
 
 const SIDEBAR_ROUTES = ['/mapas', '/dashboard', '/reportar', '/insights']
-const NO_FOOTER_ROUTES = ['/mapas']
+const NO_FOOTER_ROUTES = ['/mapas', '/chat']
 
 export function AppLayout({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()

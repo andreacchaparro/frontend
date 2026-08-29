@@ -173,3 +173,24 @@ export interface GeoResumenFilters {
   municipio?: number
   vereda?: number
 }
+
+// ── asistente RAG (/chat, /ingest) ──────────────────────────────
+
+export interface ChatSource {
+  source: string
+  content: string
+  score: number
+}
+
+export interface ChatResponse {
+  answer: string
+  sources: ChatSource[]
+}
+
+export interface ChatMessage {
+  id: string
+  role: 'user' | 'assistant'
+  content: string
+  sources?: ChatSource[]
+  error?: boolean
+}
