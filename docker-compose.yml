@@ -25,5 +25,5 @@ services:
         VITE_API_URL: ${VITE_API_URL:-http://localhost:8001}
         VITE_MAP_STYLE: ${VITE_MAP_STYLE:-https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json}
     ports:
-      - "${FRONTEND_PORT:-3000}:80"
+      - "127.0.0.1:${FRONTEND_PORT:-3000}:80"
     profiles: [prod]
