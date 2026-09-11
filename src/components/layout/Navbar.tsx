@@ -7,6 +7,7 @@ const LINKS = [
   { to: '/dashboard', label: 'Datos' },
   { to: '/reportar', label: 'Reportar' },
   { to: '/educacion', label: 'Educación' },
+  { to: '/chat', label: 'Chat' },
 ]
 
 export function Navbar() {

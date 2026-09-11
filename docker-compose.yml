@@ -19,6 +19,11 @@ services:
     build:
       context: .
       target: production
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+        VITE_GEO_API_BASE_URL: ${VITE_GEO_API_BASE_URL:-/api/geo}
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8001}
+        VITE_MAP_STYLE: ${VITE_MAP_STYLE:-https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json}
     ports:
-      - "8080:80"
+      - "127.0.0.1:${FRONTEND_PORT:-3000}:80"
     profiles: [prod]
