@@ -3,7 +3,6 @@ import { useQueries } from '@tanstack/react-query'
 import { useDatosProyecto } from '@/hooks/useDatosProyecto'
 import { datosService } from '@/services/datos.service'
 import { downloadFile } from '@/utils/download'
-import { EmissionTrendChart } from '@/components/charts/EmissionTrendChart'
 import type { SitioFeature, VistaDatos } from '@/types'
 
 interface Props {
@@ -26,18 +25,17 @@ const DETALLE_TABS: { key: string; label: string; vista: VistaDatos; gasFiltro?:
 ]
 
 const MODELO_COLORS = [
-  '#065f46', // verde oscuro
-  '#16a34a', // verde medio
-  '#2563eb', // azul
-  '#ea580c', // naranja
-  '#7c3aed', // violeta
-  '#0891b2', // cian
-  '#b45309', // ámbar
-  '#be123c', // rosa
+  '#198A77', // verde azulado
+  '#739E5B', // verde
+  '#F2B91B', // amarillo
+  '#DF5B26', // naranja
+  '#57270F', // café
+  '#F19F1F', // naranja claro
+  '#2FBFA3', // verde azulado claro
+  '#56763F', // verde oscuro
 ]
 
 export function SiteDetailPanel({ sitio, onClose }: Props) {
-  const [chartOpen, setChartOpen] = useState(true)
   const [tablaOpen, setTablaOpen] = useState(true)
   const proyectosDelSitio = sitio.properties.proyectos
   const [proyectoId, setProyectoId] = useState<number | null>(proyectosDelSitio[0]?.id ?? null)
@@ -57,7 +55,6 @@ export function SiteDetailPanel({ sitio, onClose }: Props) {
     setFiltrosInput({})
     setFiltros({})
     setOffset(0)
-    setChartOpen(true)
     setTablaOpen(true)
     setExportError(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,25 +152,6 @@ export function SiteDetailPanel({ sitio, onClose }: Props) {
         </div>
       ) : (
           <div className="flex flex-col overflow-hidden divide-y divide-border">
-            {/* Sección translúcida (hereda el fondo difuminado del panel), independiente de la tabla: gráfica de tendencia. */}
-            <div className="flex flex-col overflow-hidden">
-              <div className="w-full flex items-center justify-between px-4 py-2 text-xs text-fg-muted">
-                <button
-                  onClick={() => setChartOpen((o) => !o)}
-                  className="flex items-center gap-2 hover:text-fg transition-colors"
-                >
-                  <span className="font-semibold uppercase tracking-wider">Tendencia histórica (mediciones crudas)</span>
-                  <span className="text-base">{chartOpen ? '▼' : '▲'}</span>
-                </button>
-              </div>
-
-              {chartOpen && (
-                <div className="px-4 pb-3">
-                  <EmissionTrendChart />
-                </div>
-              )}
-            </div>
-
             {/* Sección con fondo sólido (bg-panel, sin alpha): tabs, contador y tabla, para que el mapa no transparente detrás. */}
             <div className="flex flex-col overflow-hidden bg-panel">
               <div className="w-full flex items-center justify-between px-4 py-2 text-xs text-fg-muted">
@@ -291,7 +269,7 @@ export function SiteDetailPanel({ sitio, onClose }: Props) {
                                   value={filtrosInput[c.clave] ?? ''}
                                   onChange={(e) => setFiltrosInput((f) => ({ ...f, [c.clave]: e.target.value }))}
                                   placeholder="filtrar…"
-                                  className="w-full min-w-[80px] bg-transparent text-fg text-xs px-1 py-0.5 border border-border rounded focus:outline-none focus:ring-1 focus:ring-green-500"
+                                  className="w-full min-w-[80px] bg-transparent text-fg text-xs px-1 py-0.5 border border-border rounded focus:outline-none focus:ring-1 focus:ring-brand-teal"
                                 />
                               </th>
                             )

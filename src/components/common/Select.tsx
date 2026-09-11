@@ -18,7 +18,7 @@ export function Select({ label, value, options, onChange }: Props) {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+        className="bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-brand-teal"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value} disabled={opt.disabled}>

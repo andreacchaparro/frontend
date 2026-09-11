@@ -41,7 +41,7 @@ export function Educacion() {
             onClick={() => setTab(t)}
             className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
               tab === t
-                ? 'border-green-600 text-green-700 dark:text-green-400'
+                ? 'border-brand-teal text-brand-teal dark:text-brand-teal-bright'
                 : 'border-transparent text-fg-muted hover:text-fg'
             }`}
           >
@@ -54,9 +54,9 @@ export function Educacion() {
         {CONTENIDO[tab].map((item) => (
           <div
             key={item.title}
-            className="bg-panel border border-border rounded-xl overflow-hidden hover:border-green-600 transition-colors cursor-pointer"
+            className="bg-panel border border-border rounded-xl overflow-hidden hover:border-brand-teal transition-colors cursor-pointer"
           >
-            <div className="h-28 bg-gradient-to-br from-green-100 to-green-300 dark:from-green-900 dark:to-green-800 flex items-center justify-center text-4xl">
+            <div className="h-28 bg-brand-teal-light dark:bg-brand-teal-dark/30 flex items-center justify-center text-4xl">
               {item.icon}
             </div>
             <div className="p-4">
@@ -64,7 +64,7 @@ export function Educacion() {
                 {item.meta}
               </p>
               <p className="text-sm font-semibold text-fg mt-1">{item.title}</p>
-              <button className="mt-3 text-xs font-semibold text-green-700 dark:text-green-400 hover:underline">
+              <button className="mt-3 text-xs font-semibold text-brand-teal dark:text-brand-teal-bright hover:underline">
                 Leer más →
               </button>
             </div>

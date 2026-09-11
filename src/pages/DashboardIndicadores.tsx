@@ -10,7 +10,7 @@ import { useThemeStore } from '@/store/useThemeStore'
 
 const TOTAL_DEPARTAMENTOS_COLOMBIA = 33
 
-const PIE_COLORS = ['#15803d', '#22c55e', '#86efac', '#facc15', '#f59e0b', '#94a3b8']
+const PIE_COLORS = ['#198A77', '#739E5B', '#F2B91B', '#DF5B26', '#57270F', '#94a3b8']
 
 export function DashboardIndicadores() {
   const { data: sitios, isLoading: sitiosLoading } = useSitios()
@@ -116,7 +116,7 @@ export function DashboardIndicadores() {
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie data={coberturaData} dataKey="value" nameKey="name" innerRadius={50} outerRadius={80}>
-                <Cell fill="#15803d" />
+                <Cell fill="#198A77" />
                 <Cell fill={isDark ? '#334155' : '#e2e8e4'} />
               </Pie>
               <Legend wrapperStyle={{ fontSize: 11, color: tickColor }} />

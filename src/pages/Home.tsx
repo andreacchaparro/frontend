@@ -9,7 +9,7 @@ const FEATURES = [
 export function Home() {
   return (
     <div className="flex-1 flex flex-col">
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-50 to-teal-50 dark:from-slate-900 dark:to-slate-800">
+      <section className="relative overflow-hidden bg-brand-teal-light dark:bg-surface">
         <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-fg leading-tight">
@@ -21,7 +21,7 @@ export function Home() {
             <div className="mt-8 flex gap-3">
               <Link
                 to="/mapas"
-                className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-full font-semibold transition-colors"
+                className="bg-brand-yellow hover:bg-brand-yellow-dark text-brand-brown px-6 py-3 rounded-full font-semibold transition-colors"
               >
                 Explorar Mapas
               </Link>
@@ -46,7 +46,7 @@ export function Home() {
             </div>
           </div>
 
-          <div className="relative h-80 md:h-[420px] rounded-2xl overflow-hidden bg-gradient-to-b from-green-200 via-green-400 to-green-700 dark:from-green-900 dark:via-green-800 dark:to-green-950 flex items-center justify-center shadow-lg">
+          <div className="relative h-80 md:h-[420px] rounded-2xl overflow-hidden bg-brand-teal dark:bg-brand-teal-dark flex items-center justify-center">
             <span className="text-8xl drop-shadow" aria-hidden>
               🏔️
             </span>
@@ -63,12 +63,12 @@ export function Home() {
       <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-6 w-full">
         <Link
           to="/mapas"
-          className="bg-panel border border-border rounded-xl p-6 hover:border-green-600 transition-colors group"
+          className="bg-panel border border-border rounded-xl p-6 hover:border-brand-teal transition-colors group"
         >
           <span className="text-2xl" aria-hidden>
             🗺️
           </span>
-          <h3 className="mt-3 font-semibold text-fg group-hover:text-green-700 dark:group-hover:text-green-400">
+          <h3 className="mt-3 font-semibold text-fg group-hover:text-brand-teal dark:group-hover:text-brand-teal-bright">
             Mapa interactivo
           </h3>
           <p className="mt-1 text-sm text-fg-muted">
@@ -77,12 +77,12 @@ export function Home() {
         </Link>
         <Link
           to="/dashboard"
-          className="bg-panel border border-border rounded-xl p-6 hover:border-green-600 transition-colors group"
+          className="bg-panel border border-border rounded-xl p-6 hover:border-brand-teal transition-colors group"
         >
           <span className="text-2xl" aria-hidden>
             📊
           </span>
-          <h3 className="mt-3 font-semibold text-fg group-hover:text-green-700 dark:group-hover:text-green-400">
+          <h3 className="mt-3 font-semibold text-fg group-hover:text-brand-teal dark:group-hover:text-brand-teal-bright">
             Dashboard de indicadores
           </h3>
           <p className="mt-1 text-sm text-fg-muted">
@@ -91,12 +91,12 @@ export function Home() {
         </Link>
         <Link
           to="/reportar"
-          className="bg-panel border border-border rounded-xl p-6 hover:border-green-600 transition-colors group"
+          className="bg-panel border border-border rounded-xl p-6 hover:border-brand-teal transition-colors group"
         >
           <span className="text-2xl" aria-hidden>
             📝
           </span>
-          <h3 className="mt-3 font-semibold text-fg group-hover:text-green-700 dark:group-hover:text-green-400">
+          <h3 className="mt-3 font-semibold text-fg group-hover:text-brand-teal dark:group-hover:text-brand-teal-bright">
             Participación ciudadana
           </h3>
           <p className="mt-1 text-sm text-fg-muted">

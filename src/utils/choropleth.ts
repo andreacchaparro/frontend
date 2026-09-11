@@ -7,9 +7,9 @@ export const METRIC_LABELS: Record<MetricField, string> = {
   total_muestras: 'Total de muestras',
 }
 
-const COLOR_LOW = '#22c55e'
-const COLOR_MID = '#eab308'
-const COLOR_HIGH = '#ef4444'
+const COLOR_LOW = '#739E5B'
+const COLOR_MID = '#F2B91B'
+const COLOR_HIGH = '#DF5B26'
 const COLOR_NO_DATA = '#94a3b8'
 
 export function getMetricValues(
