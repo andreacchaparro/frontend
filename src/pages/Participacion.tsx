@@ -47,7 +47,7 @@ export function Participacion() {
             <p className="text-xs text-fg-muted">{c.desc}</p>
             <button
               type="button"
-              className="mt-auto text-xs font-semibold text-green-700 dark:text-green-400 hover:underline"
+              className="mt-auto text-xs font-semibold text-brand-teal dark:text-brand-teal-bright hover:underline"
             >
               {c.action} →
             </button>
@@ -73,7 +73,7 @@ export function Participacion() {
                 setUbicacion('')
                 setDescripcion('')
               }}
-              className="mt-4 text-xs font-semibold text-green-700 dark:text-green-400 hover:underline"
+              className="mt-4 text-xs font-semibold text-brand-teal dark:text-brand-teal-bright hover:underline"
             >
               Enviar otro reporte
             </button>
@@ -94,7 +94,7 @@ export function Participacion() {
                 value={ubicacion}
                 onChange={(e) => setUbicacion(e.target.value)}
                 placeholder="Busca un lugar o descríbelo"
-                className="bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                className="bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-brand-teal"
               />
             </div>
 
@@ -106,7 +106,7 @@ export function Participacion() {
                 rows={4}
                 maxLength={500}
                 placeholder="Cuéntanos lo que observaste…"
-                className="bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500 resize-none"
+                className="bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-brand-teal resize-none"
               />
               <p className="text-xs text-fg-subtle text-right">{descripcion.length}/500</p>
             </div>
@@ -120,7 +120,7 @@ export function Participacion() {
 
             <button
               type="submit"
-              className="bg-green-700 hover:bg-green-800 text-white px-4 py-2.5 rounded-md font-semibold text-sm transition-colors"
+              className="bg-brand-teal hover:bg-brand-teal-dark text-white px-4 py-2.5 rounded-md font-semibold text-sm transition-colors"
             >
               Enviar mensaje
             </button>

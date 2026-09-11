@@ -25,7 +25,7 @@ export function AppSidebar() {
           className={({ isActive }) =>
             `w-12 h-12 flex flex-col items-center justify-center rounded-lg text-[10px] font-medium gap-0.5 transition-colors ${
               isActive
-                ? 'bg-green-700/10 text-green-700 dark:text-green-400'
+                ? 'bg-brand-teal/10 text-brand-teal dark:text-brand-teal-bright'
                 : 'text-fg-muted hover:bg-surface hover:text-fg'
             }`
           }

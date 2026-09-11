@@ -105,10 +105,12 @@ export function GeoMap({ onSelectSitio }: Props) {
       style: MAP_STYLE_OVERRIDE ?? (isDark ? DARK_STYLE : LIGHT_STYLE),
       center: COLOMBIA_CENTER,
       zoom: 5,
+      attributionControl: false,
     })
 
     mapRef.current.addControl(new maplibregl.NavigationControl(), 'top-right')
-    mapRef.current.addControl(new maplibregl.ScaleControl(), 'bottom-right')
+    mapRef.current.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left')
+    mapRef.current.addControl(new maplibregl.ScaleControl(), 'bottom-left')
 
     mapRef.current.on('click', RESUMEN_FILL_LAYER, (e) => {
       const feature = e.features?.[0] as unknown as GeoResumenFeature | undefined
@@ -300,7 +302,7 @@ export function GeoMap({ onSelectSitio }: Props) {
         <br/><span style="color:#374151">Unidades de muestreo: ${p.unidades_muestreo.length}</span>
         <br/><span style="color:#374151">Última medición (${filters.gas}): ${ultimaMedicion}</span>
         <br/><span style="color:#374151">Total de muestras (${filters.gas}): ${resumenGas?.total_muestras ?? 0}</span>
-        <br/><button class="ver-detalle-btn" style="margin-top:6px;padding:3px 10px;font-size:12px;font-weight:600;color:#fff;background:#0f172a;border:none;border-radius:4px;cursor:pointer;">Ver detalle</button>
+        <br/><button class="ver-detalle-btn" style="margin-top:6px;padding:3px 10px;font-size:12px;font-weight:600;color:#fff;background:#198A77;border:none;border-radius:4px;cursor:pointer;">Ver detalle</button>
       `)
 
       // El popup se renderiza como HTML plano (fuera de React), así que el

@@ -7,7 +7,7 @@ export function InsightsIA() {
       <div className="flex items-center gap-3">
         <div>
           <h1 className="text-xl font-bold text-fg flex items-center gap-2">
-            Insights <Badge label="IA" color="#3b82f6" />
+            Insights <Badge label="IA" color="#198A77" />
           </h1>
           <p className="text-sm text-fg-muted mt-1">
             Análisis generados automáticamente a partir de las tendencias observadas en la
@@ -44,7 +44,7 @@ export function InsightsIA() {
                 <span className="text-fg-subtle">•</span> Presión por actividades agropecuarias
               </li>
             </ul>
-            <button className="mt-4 text-xs font-semibold text-green-700 dark:text-green-400 hover:underline">
+            <button className="mt-4 text-xs font-semibold text-brand-teal dark:text-brand-teal-bright hover:underline">
               Ver análisis completo →
             </button>
           </div>
@@ -64,7 +64,7 @@ export function InsightsIA() {
             <p className="text-xs text-fg-muted font-semibold uppercase tracking-wider">
               Escenario con restauración
             </p>
-            <p className="text-2xl font-bold text-green-600 mt-1">+15%</p>
+            <p className="text-2xl font-bold text-brand-green mt-1">+15%</p>
             <p className="text-xs text-fg-subtle mt-1">carbono almacenado proyectado</p>
           </div>
         </div>

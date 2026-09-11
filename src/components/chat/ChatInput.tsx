@@ -31,12 +31,12 @@ export function ChatInput({ onSend, disabled = false }: Props) {
         placeholder="Escribe tu pregunta…"
         rows={1}
         disabled={disabled}
-        className="flex-1 resize-none bg-surface border border-border rounded-xl px-3.5 py-2.5 text-sm text-fg placeholder:text-fg-subtle focus:outline-none focus:ring-1 focus:ring-green-500 disabled:opacity-50 max-h-32"
+        className="flex-1 resize-none bg-surface border border-border rounded-xl px-3.5 py-2.5 text-sm text-fg placeholder:text-fg-subtle focus:outline-none focus:ring-1 focus:ring-brand-teal disabled:opacity-50 max-h-32"
       />
       <button
         onClick={handleSend}
         disabled={disabled || !value.trim()}
-        className="shrink-0 bg-green-700 hover:bg-green-800 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        className="shrink-0 bg-brand-teal hover:bg-brand-teal-dark text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         aria-label="Enviar mensaje"
       >
         ➤

@@ -8,7 +8,6 @@ import { DashboardIndicadores } from '@/pages/DashboardIndicadores'
 import { Participacion } from '@/pages/Participacion'
 import { InsightsIA } from '@/pages/InsightsIA'
 import { Educacion } from '@/pages/Educacion'
-import { Chat } from '@/pages/Chat'
 import { useThemeStore } from '@/store/useThemeStore'
 
 const queryClient = new QueryClient({
@@ -38,7 +37,6 @@ export default function App() {
             <Route path="/reportar" element={<Participacion />} />
             <Route path="/insights" element={<InsightsIA />} />
             <Route path="/educacion" element={<Educacion />} />
-            <Route path="/chat" element={<Chat />} />
           </Routes>
         </AppLayout>
       </BrowserRouter>

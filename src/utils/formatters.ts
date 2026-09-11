@@ -1,7 +1,7 @@
 export const GAS_COLORS: Record<string, string> = {
-  CO2: '#22c55e',
-  CH4: '#f59e0b',
-  N2O: '#3b82f6',
+  CO2: '#198A77',
+  CH4: '#DF5B26',
+  N2O: '#57270F',
 }
 
 export const GAS_LABELS: Record<string, string> = {

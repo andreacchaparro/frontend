@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useThemeStore } from '@/store/useThemeStore'
+import logoHorizontal from '@/assets/files/LOGO_FINAL_Horizontal.png'
 
 const LINKS = [
   { to: '/', label: 'Inicio' },
@@ -7,7 +8,6 @@ const LINKS = [
   { to: '/dashboard', label: 'Datos' },
   { to: '/reportar', label: 'Reportar' },
   { to: '/educacion', label: 'Educación' },
-  { to: '/chat', label: 'Chat' },
 ]
 
 export function Navbar() {
@@ -15,18 +15,15 @@ export function Navbar() {
 
   return (
     <header className="h-14 shrink-0 bg-panel border-b border-border flex items-center px-6 gap-6 sticky top-0 z-30">
-      <NavLink to="/" className="flex items-center gap-2 shrink-0">
-        <span className="text-xl" aria-hidden>
-          🌿
+      <NavLink to="/" className="flex items-center gap-3 shrink-0">
+        <span className="dark:bg-white dark:rounded-md dark:px-2 dark:py-1 flex items-center">
+          <img src={logoHorizontal} alt="Colflux" className="h-8 w-auto" />
         </span>
-        <div>
-          <h1 className="text-sm font-bold tracking-wide uppercase text-green-800 dark:text-green-400 leading-none">
-            Colflux
-          </h1>
-          <p className="text-xs text-fg-muted leading-none mt-0.5">
-            Gases de Efecto Invernadero · Colombia
-          </p>
-        </div>
+        <p className="hidden lg:block text-xs text-fg-muted leading-none border-l border-border pl-3">
+          Gases de Efecto
+          <br />
+          Invernadero · Colombia
+        </p>
       </NavLink>
 
       <nav className="hidden md:flex items-center gap-1 ml-4">
@@ -38,7 +35,7 @@ export function Navbar() {
             className={({ isActive }) =>
               `px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                 isActive
-                  ? 'text-green-700 dark:text-green-400 bg-green-700/10'
+                  ? 'text-brand-teal dark:text-brand-teal-bright bg-brand-teal/10'
                   : 'text-fg-muted hover:text-fg hover:bg-surface'
               }`
             }
@@ -56,7 +53,7 @@ export function Navbar() {
         >
           {theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro'}
         </button>
-        <button className="text-xs bg-green-700 hover:bg-green-800 text-white px-4 py-1.5 rounded-full font-semibold transition-colors">
+        <button className="text-xs bg-brand-yellow hover:bg-brand-yellow-dark text-brand-brown px-4 py-1.5 rounded-full font-semibold transition-colors">
           Iniciar sesión
         </button>
       </div>
