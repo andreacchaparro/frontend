@@ -9,7 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: process.env.NODE_ENV === 'production' ? '/frontend/' : '/',
+  base: process.env.VITE_BASE_PATH || '/',
   server: {
     port: 3000,
     host: true,
