@@ -31,6 +31,7 @@ jobs:
       - run: npm run build
         env:
           NODE_ENV: production
+          VITE_BASE_PATH: /frontend/
           VITE_USE_MOCK: true
           VITE_MAP_STYLE: https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json
 
