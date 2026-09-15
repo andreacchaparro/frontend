@@ -1,13 +1,19 @@
 import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { Card } from '@/components/common/Card'
 import { Select } from '@/components/common/Select'
 
 const CANALES = [
-  { icon: '💬', title: 'Reporte rápido', desc: 'Vía WhatsApp', action: 'Abrir WhatsApp' },
   { icon: '📄', title: 'Formulario web', desc: 'Completa el formulario', action: 'Ir al formulario' },
-  { icon: '📱', title: 'Desde la app', desc: 'Descarga la aplicación', action: 'Descargar' },
   { icon: '📘', title: 'Guía de reporte', desc: 'Aprende cómo reportar', action: 'Ver guía' },
 ]
+
+const ETL_CARD = {
+  icon: '📂',
+  title: 'Gestión de Datos',
+  desc: 'Proyectos, fuentes y carga de datos',
+  action: 'Abrir panel de datos',
+}
 
 const ECOSISTEMAS = [
   { value: '', label: 'Selecciona un ecosistema' },
@@ -53,6 +59,20 @@ export function Participacion() {
             </button>
           </Card>
         ))}
+
+        <Card className="flex flex-col items-start gap-2">
+          <span className="text-xl" aria-hidden>
+            {ETL_CARD.icon}
+          </span>
+          <p className="text-sm font-semibold text-fg">{ETL_CARD.title}</p>
+          <p className="text-xs text-fg-muted">{ETL_CARD.desc}</p>
+          <Link
+            to="/data"
+            className="mt-auto text-xs font-semibold text-brand-teal dark:text-brand-teal-bright hover:underline"
+          >
+            {ETL_CARD.action} →
+          </Link>
+        </Card>
       </div>
 
       <Card title="Nuevo reporte" className="max-w-2xl">

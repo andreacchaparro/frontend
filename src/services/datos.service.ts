@@ -21,6 +21,24 @@ export const datosService = {
     return res.json() as Promise<DatosProyectoResponse>
   },
 
+  getDatosCarga: async (
+    fuenteId: number,
+    cargaId: number,
+    { vista, filtros, offset, limite }: DatosProyectoFilters = {}
+  ): Promise<DatosProyectoResponse> => {
+    const params = new URLSearchParams()
+    if (vista) params.set('vista', vista)
+    if (filtros && Object.keys(filtros).length > 0) params.set('filtros', JSON.stringify(filtros))
+    if (offset != null) params.set('offset', String(offset))
+    if (limite != null) params.set('limite', String(limite))
+
+    const query = params.toString()
+    const url = `${API_BASE}/fuentes-datos/${fuenteId}/carga/${cargaId}/datos/${query ? `?${query}` : ''}`
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`API error ${res.status}: ${url}`)
+    return res.json() as Promise<DatosProyectoResponse>
+  },
+
   getExportarProyectoUrl: (proyectoId: number): string => `${API_BASE}/proyectos/${proyectoId}/exportar/`,
 
   getExportarCargaUrl: (fuenteId: number, cargaId: number): string =>

@@ -1,0 +1,31 @@
+import { useMutation } from '@tanstack/react-query'
+import { etlService } from '@/services/etl.service'
+import { useEtlUploadStore } from '@/store/useEtlUploadStore'
+
+// Analizar el archivo y cargar el catálogo de campos destino son dos
+// llamadas separadas en el backend, pero el wizard no puede mostrar el
+// Paso 2 hasta tener ambas — se combinan en una sola mutation.
+export function useAnalizarFuente() {
+  const setAnalisis = useEtlUploadStore((s) => s.setAnalisis)
+
+  return useMutation({
+    mutationFn: async ({ fuenteId, archivo }: { fuenteId: number; archivo?: File }) => {
+      const analisis = await etlService.analizarFuente(fuenteId, archivo)
+      const camposDestino = await etlService.getCamposDestino(fuenteId)
+      return { analisis, camposDestino }
+    },
+    onSuccess: ({ analisis, camposDestino }) => {
+      setAnalisis(
+        {
+          cargaId: analisis.carga_id,
+          columnas: analisis.columnas,
+          sheets: analisis.sheets,
+          hojaActiva: analisis.hoja_activa,
+          totalFilas: analisis.total_filas,
+          mapeosPrevios: analisis.mapeos,
+        },
+        camposDestino
+      )
+    },
+  })
+}

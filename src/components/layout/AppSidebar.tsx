@@ -3,11 +3,11 @@ import { NavLink } from 'react-router-dom'
 const ITEMS = [
   { to: '/mapas', icon: '🗺️', label: 'Mapa' },
   { to: '/dashboard', icon: '📊', label: 'Indicadores' },
-  { to: '/reportar', icon: '📝', label: 'Reportar' },
   { to: '/insights', icon: '🤖', label: 'Insights' },
 ]
 
 const SOON_ITEMS = [
+  { icon: '📝', label: 'Reportar' },
   { icon: '📡', label: 'Sensores' },
   { icon: '🧩', label: 'Capas' },
   { icon: '⬇️', label: 'Descargas' },
