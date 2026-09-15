@@ -1,14 +1,21 @@
 import { useAuthStore } from '@/store/useAuthStore'
+import type { NivelAcceso } from '@/types'
 
-const ROL_ADMIN = 'admin_datos'
+const NIVELES_ACCESO: NivelAcceso[] = ['ciudadano', 'investigador', 'reportador', 'admin']
 
 export function useRolActual() {
   const usuario = useAuthStore((s) => s.usuario)
-  const roles = usuario?.roles ?? []
+  const nivel = usuario?.nivel ?? 'ciudadano'
+
+  const tieneNivel = (minimo: NivelAcceso) =>
+    NIVELES_ACCESO.indexOf(nivel) >= NIVELES_ACCESO.indexOf(minimo)
 
   return {
     usuario,
-    roles,
-    isAdmin: roles.includes(ROL_ADMIN),
+    nivel,
+    tieneNivel,
+    puedeDescargar: tieneNivel('investigador'),
+    puedeSubirDatos: tieneNivel('reportador'),
+    isAdmin: nivel === 'admin',
   }
 }
