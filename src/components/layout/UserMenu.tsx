@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useLogout } from '@/hooks/useAuth'
+import { SolicitarNivelModal } from '@/components/layout/SolicitarNivelModal'
 
 const NOMBRES_NIVEL: Record<string, string> = {
   ciudadano: 'Ciudadano',
@@ -19,6 +20,7 @@ export function UserMenu() {
   const usuario = useAuthStore((s) => s.usuario)
   const logout = useLogout()
   const [open, setOpen] = useState(false)
+  const [solicitudAbierta, setSolicitudAbierta] = useState(false)
 
   if (!usuario) return null
 
@@ -48,6 +50,17 @@ export function UserMenu() {
               <p className="text-sm font-semibold text-fg">{usuario.nombre}</p>
               <p className="text-[10px] text-fg-subtle">{rolesTexto}</p>
             </div>
+            {usuario.nivel !== 'admin' && (
+              <button
+                onClick={() => {
+                  setOpen(false)
+                  setSolicitudAbierta(true)
+                }}
+                className="w-full text-left px-3 py-2 text-sm text-fg hover:bg-surface"
+              >
+                Solicitar otro nivel
+              </button>
+            )}
             <button
               onClick={() => {
                 setOpen(false)
@@ -60,6 +73,8 @@ export function UserMenu() {
           </div>
         </>
       )}
+
+      <SolicitarNivelModal open={solicitudAbierta} onClose={() => setSolicitudAbierta(false)} />
     </div>
   )
 }
