@@ -499,6 +499,10 @@ export interface FuenteDatosPayload {
 
 // ── responsables/reportadores (/api/responsables/, /api/usuarios/) ──
 
+// Cascada de nivel de acceso: cada uno incluye todo lo del anterior.
+// ciudadano < investigador < reportador < admin.
+export type NivelAcceso = 'ciudadano' | 'investigador' | 'reportador' | 'admin'
+
 export interface Responsable {
   id: number
   nombre: string
@@ -507,7 +511,7 @@ export interface Responsable {
   correo_institucional: string
   institucion: number | null
   institucion_nombre: string
-  roles: string[]
+  nivel: NivelAcceso
 }
 
 export interface UsuarioPayload {
@@ -515,7 +519,7 @@ export interface UsuarioPayload {
   cargo?: string
   correo?: string
   institucion?: number | null
-  roles?: string[]
+  nivel?: NivelAcceso
   password?: string
 }
 

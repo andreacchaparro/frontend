@@ -1,17 +1,22 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useUsuarioDrawerStore } from '@/store/useUsuarioDrawerStore'
-import { useInstituciones, useRolesUsuario, useCrearUsuario, useActualizarUsuario } from '@/hooks/useUsuarioMutations'
+import { useInstituciones, useCrearUsuario, useActualizarUsuario } from '@/hooks/useUsuarioMutations'
+import type { NivelAcceso } from '@/types'
 
 const inputClass =
   'bg-surface border border-border text-fg text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-brand-teal w-full'
 const labelClass = 'text-xs font-bold text-fg'
 
-const ROLES_FALLBACK = [{ id: 0, codigo: 'reportador', nombre: 'Reportador' }]
+const NIVELES: { valor: NivelAcceso; nombre: string }[] = [
+  { valor: 'ciudadano', nombre: 'Ciudadano' },
+  { valor: 'investigador', nombre: 'Investigador' },
+  { valor: 'reportador', nombre: 'Reportador' },
+  { valor: 'admin', nombre: 'Administrador' },
+]
 
 export function UsuarioDrawer() {
   const { open, editingUsuario, closeDrawer } = useUsuarioDrawerStore()
   const { data: instituciones } = useInstituciones()
-  const { data: roles } = useRolesUsuario()
   const crearUsuario = useCrearUsuario()
   const actualizarUsuario = useActualizarUsuario()
 
@@ -19,7 +24,7 @@ export function UsuarioDrawer() {
   const [correo, setCorreo] = useState('')
   const [cargo, setCargo] = useState('')
   const [institucionId, setInstitucionId] = useState('')
-  const [rolesSeleccionados, setRolesSeleccionados] = useState<Set<string>>(new Set(['reportador']))
+  const [nivel, setNivel] = useState<NivelAcceso>('reportador')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
@@ -30,29 +35,19 @@ export function UsuarioDrawer() {
       setCorreo(editingUsuario.correo || editingUsuario.correo_institucional || '')
       setCargo(editingUsuario.cargo || '')
       setInstitucionId(editingUsuario.institucion ? String(editingUsuario.institucion) : '')
-      setRolesSeleccionados(new Set(editingUsuario.roles))
+      setNivel(editingUsuario.nivel)
     } else {
       setNombre('')
       setCorreo('')
       setCargo('')
       setInstitucionId('')
-      setRolesSeleccionados(new Set(['reportador']))
+      setNivel('reportador')
     }
     setPassword('')
     setError('')
   }, [open, editingUsuario])
 
   const guardando = crearUsuario.isPending || actualizarUsuario.isPending
-  const opcionesRoles = roles && roles.length > 0 ? roles : ROLES_FALLBACK
-
-  function toggleRol(codigo: string) {
-    setRolesSeleccionados((prev) => {
-      const next = new Set(prev)
-      if (next.has(codigo)) next.delete(codigo)
-      else next.add(codigo)
-      return next
-    })
-  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -72,7 +67,7 @@ export function UsuarioDrawer() {
       cargo: cargo.trim(),
       correo: correo.trim(),
       institucion: institucionId ? Number(institucionId) : null,
-      roles: [...rolesSeleccionados],
+      nivel,
       ...(password ? { password } : {}),
     }
 
@@ -172,19 +167,14 @@ export function UsuarioDrawer() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className={labelClass}>Roles</label>
-            <div className="border border-border rounded-md p-2.5 flex flex-col gap-1.5 bg-surface">
-              {opcionesRoles.map((rol) => (
-                <label key={rol.codigo} className="flex items-center gap-2 text-sm text-fg cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={rolesSeleccionados.has(rol.codigo)}
-                    onChange={() => toggleRol(rol.codigo)}
-                  />
-                  {rol.nombre}
-                </label>
+            <label className={labelClass}>Nivel de acceso</label>
+            <select value={nivel} onChange={(e) => setNivel(e.target.value as NivelAcceso)} className={inputClass}>
+              {NIVELES.map((n) => (
+                <option key={n.valor} value={n.valor}>
+                  {n.nombre}
+                </option>
               ))}
-            </div>
+            </select>
           </div>
 
           {error && <p className="text-sm font-semibold text-red-500">{error}</p>}

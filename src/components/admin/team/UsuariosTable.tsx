@@ -24,7 +24,7 @@ export function UsuariosTable({ usuarios, isLoading }: Props) {
         (r.cargo || '').toLowerCase().includes(q) ||
         (r.correo || r.correo_institucional || '').toLowerCase().includes(q) ||
         (r.institucion_nombre || '').toLowerCase().includes(q) ||
-        r.roles.join(' ').toLowerCase().includes(q)
+        r.nivel.toLowerCase().includes(q)
     )
   }, [usuarios, busqueda])
 
@@ -52,7 +52,7 @@ export function UsuariosTable({ usuarios, isLoading }: Props) {
         <table className="w-full min-w-[720px] border-collapse text-sm">
           <thead>
             <tr>
-              {['Nombre', 'Cargo', 'Correo', 'Institución', 'Roles', 'Acciones'].map((h) => (
+              {['Nombre', 'Cargo', 'Correo', 'Institución', 'Nivel', 'Acciones'].map((h) => (
                 <th
                   key={h}
                   className="bg-surface px-3.5 py-3 text-left text-xs font-bold uppercase tracking-wider text-fg-muted border-b border-border"
@@ -93,8 +93,8 @@ export function UsuariosTable({ usuarios, isLoading }: Props) {
                     <td className="px-3.5 py-3 border-b border-border align-top">
                       {r.institucion_nombre || <span className="text-fg-muted">Sin institución</span>}
                     </td>
-                    <td className="px-3.5 py-3 border-b border-border align-top">
-                      {r.roles.length > 0 ? r.roles.join(', ') : <span className="text-fg-muted">Sin roles</span>}
+                    <td className="px-3.5 py-3 border-b border-border align-top capitalize">
+                      {r.nivel}
                     </td>
                     <td className="px-3.5 py-3 border-b border-border align-top">
                       <div className="flex gap-2 flex-wrap">

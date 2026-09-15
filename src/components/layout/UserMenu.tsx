@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useLogout } from '@/hooks/useAuth'
 
-const NOMBRES_ROL: Record<string, string> = {
-  admin_datos: 'Administrador de datos',
-  coordinador: 'Coordinador',
+const NOMBRES_NIVEL: Record<string, string> = {
+  ciudadano: 'Ciudadano',
   investigador: 'Investigador',
   reportador: 'Reportador',
+  admin: 'Administrador',
 }
 
 function iniciales(nombre: string): string {
@@ -22,7 +22,7 @@ export function UserMenu() {
 
   if (!usuario) return null
 
-  const rolesTexto = usuario.roles.map((r) => NOMBRES_ROL[r] || r).join(' · ') || 'Sin rol asignado'
+  const rolesTexto = NOMBRES_NIVEL[usuario.nivel] || usuario.nivel
 
   return (
     <div className="relative flex items-center gap-2.5">
