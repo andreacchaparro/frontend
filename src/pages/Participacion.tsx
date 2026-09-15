@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Card } from '@/components/common/Card'
 import { Select } from '@/components/common/Select'
+import { useRolActual } from '@/hooks/useRolActual'
 
 const CANALES = [
   { icon: '📄', title: 'Formulario web', desc: 'Completa el formulario', action: 'Ir al formulario' },
@@ -24,10 +25,13 @@ const ECOSISTEMAS = [
 ]
 
 export function Participacion() {
+  const { tieneNivel } = useRolActual()
   const [enviado, setEnviado] = useState(false)
   const [ecosistema, setEcosistema] = useState('')
   const [ubicacion, setUbicacion] = useState('')
   const [descripcion, setDescripcion] = useState('')
+
+  if (!tieneNivel('reportador')) return <Navigate to="/" replace />
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()

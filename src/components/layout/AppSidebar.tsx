@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { useRolActual } from '@/hooks/useRolActual'
 
 const ITEMS = [
   { to: '/mapas', icon: '🗺️', label: 'Mapa' },
@@ -7,7 +8,6 @@ const ITEMS = [
 ]
 
 const SOON_ITEMS = [
-  { icon: '📝', label: 'Reportar' },
   { icon: '📡', label: 'Sensores' },
   { icon: '🧩', label: 'Capas' },
   { icon: '⬇️', label: 'Descargas' },
@@ -15,8 +15,28 @@ const SOON_ITEMS = [
 ]
 
 export function AppSidebar() {
+  const { tieneNivel } = useRolActual()
+
   return (
     <aside className="w-16 shrink-0 bg-panel border-r border-border flex flex-col items-center py-4 gap-1">
+      {tieneNivel('reportador') && (
+        <NavLink
+          to="/reportar"
+          title="Reportar"
+          className={({ isActive }) =>
+            `w-12 h-12 flex flex-col items-center justify-center rounded-lg text-[10px] font-medium gap-0.5 transition-colors ${
+              isActive
+                ? 'bg-brand-teal/10 text-brand-teal dark:text-brand-teal-bright'
+                : 'text-fg-muted hover:bg-surface hover:text-fg'
+            }`
+          }
+        >
+          <span className="text-base" aria-hidden>
+            📝
+          </span>
+          Reportar
+        </NavLink>
+      )}
       {ITEMS.map((item) => (
         <NavLink
           key={item.to}

@@ -23,7 +23,7 @@ const ADMIN_LINKS = [
 export function Navbar() {
   const { theme, toggleTheme } = useThemeStore()
   const usuario = useAuthStore((s) => s.usuario)
-  const { isAdmin } = useRolActual()
+  const { isAdmin, tieneNivel } = useRolActual()
   useMe()
 
   return (
@@ -56,12 +56,27 @@ export function Navbar() {
             {link.label}
           </NavLink>
         ))}
-        <span
-          title="Reportar — próximamente"
-          className="px-3 py-1.5 rounded-md text-sm font-medium text-fg-subtle opacity-50 cursor-not-allowed"
-        >
-          Reportar
-        </span>
+        {tieneNivel('reportador') ? (
+          <NavLink
+            to="/reportar"
+            className={({ isActive }) =>
+              `px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                isActive
+                  ? 'text-brand-teal dark:text-brand-teal-bright bg-brand-teal/10'
+                  : 'text-fg-muted hover:text-fg hover:bg-surface'
+              }`
+            }
+          >
+            Reportar
+          </NavLink>
+        ) : (
+          <span
+            title="Reportar — disponible desde el nivel reportador"
+            className="px-3 py-1.5 rounded-md text-sm font-medium text-fg-subtle opacity-50 cursor-not-allowed"
+          >
+            Reportar
+          </span>
+        )}
         {isAdmin && (
           <>
             <span className="w-px h-4 bg-border mx-1" />
