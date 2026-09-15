@@ -11,6 +11,15 @@ export function useLogin() {
   })
 }
 
+export function useRegistro() {
+  const setSesion = useAuthStore((s) => s.setSesion)
+  return useMutation({
+    mutationFn: ({ nombre, correo, password }: { nombre: string; correo: string; password: string }) =>
+      authService.registro(nombre, correo, password),
+    onSuccess: (data) => setSesion(data.token, data.usuario),
+  })
+}
+
 export function useLogout() {
   const token = useAuthStore((s) => s.token)
   const cerrarSesion = useAuthStore((s) => s.cerrarSesion)
