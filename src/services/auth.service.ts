@@ -23,6 +23,16 @@ export const authService = {
     return res.json() as Promise<LoginResponse>
   },
 
+  registro: async (nombre: string, correo: string, password: string): Promise<LoginResponse> => {
+    const res = await fetch(`${API_BASE}/auth/registro/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, correo, password }),
+    })
+    if (!res.ok) throw new Error(await parseErrorMessage(res, `Error ${res.status}`))
+    return res.json() as Promise<LoginResponse>
+  },
+
   logout: async (token: string): Promise<void> => {
     const res = await fetch(`${API_BASE}/auth/logout/`, {
       method: 'POST',

@@ -523,6 +523,27 @@ export interface UsuarioPayload {
   password?: string
 }
 
+// ── solicitudes de nivel (/api/solicitudes-nivel/) ────────────────────
+
+export type EstadoSolicitudNivel = 'pendiente' | 'aprobada' | 'rechazada'
+
+export interface SolicitudNivel {
+  id: number
+  usuario: number
+  usuario_nombre: string
+  nivel_actual: NivelAcceso
+  nivel_solicitado: NivelAcceso
+  motivo: string
+  estado: EstadoSolicitudNivel
+  resuelta_por: number | null
+  created_at: string
+}
+
+export interface SolicitudNivelPayload {
+  nivel_solicitado: NivelAcceso
+  motivo?: string
+}
+
 // ── proyectos (/api/proyectos/) ──────────────────────────────────────
 
 export interface Proyecto {

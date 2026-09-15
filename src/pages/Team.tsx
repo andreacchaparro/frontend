@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom'
 import { useRolActual } from '@/hooks/useRolActual'
 import { useUsuarios } from '@/hooks/useUsuarios'
 import { InstitucionesAdmin } from '@/components/admin/team/InstitucionesAdmin'
+import { SolicitudesNivelAdmin } from '@/components/admin/team/SolicitudesNivelAdmin'
 import { UsuariosTable } from '@/components/admin/team/UsuariosTable'
 import { UsuarioDrawer } from '@/components/admin/usuarios/UsuarioDrawer'
 import { useUsuarioDrawerStore } from '@/store/useUsuarioDrawerStore'
@@ -22,6 +23,16 @@ export function Team() {
           permisos funcionales y entidades.
         </p>
       </div>
+
+      <section className="flex flex-col gap-4">
+        <div>
+          <h2 className="text-lg font-bold text-fg">Solicitudes de nivel</h2>
+          <p className="text-sm text-fg-muted mt-1">
+            Pedidos de usuarios para subir su nivel de acceso (investigador, reportador o administrador).
+          </p>
+        </div>
+        <SolicitudesNivelAdmin />
+      </section>
 
       <section className="flex flex-col gap-4">
         <div>
