@@ -25,12 +25,12 @@ export function Home() {
               >
                 Explorar Mapas
               </Link>
-              <Link
-                to="/reportar"
-                className="bg-panel border border-border text-fg px-6 py-3 rounded-full font-semibold hover:bg-surface transition-colors"
+              <span
+                title="Reportar información — próximamente"
+                className="bg-panel border border-border text-fg-subtle px-6 py-3 rounded-full font-semibold opacity-50 cursor-not-allowed"
               >
                 Reportar información
-              </Link>
+              </span>
             </div>
 
             <div className="mt-12 grid grid-cols-3 gap-4">
@@ -89,20 +89,18 @@ export function Home() {
             Resúmenes, tendencias y distribución de datos de carbono.
           </p>
         </Link>
-        <Link
-          to="/reportar"
-          className="bg-panel border border-border rounded-xl p-6 hover:border-brand-teal transition-colors group"
+        <div
+          title="Participación ciudadana — próximamente"
+          className="bg-panel border border-border rounded-xl p-6 opacity-50 cursor-not-allowed"
         >
           <span className="text-2xl" aria-hidden>
             📝
           </span>
-          <h3 className="mt-3 font-semibold text-fg group-hover:text-brand-teal dark:group-hover:text-brand-teal-bright">
-            Participación ciudadana
-          </h3>
+          <h3 className="mt-3 font-semibold text-fg-subtle">Participación ciudadana</h3>
           <p className="mt-1 text-sm text-fg-muted">
             Reporta información desde tu territorio y ayuda a cuidar los ecosistemas.
           </p>
-        </Link>
+        </div>
       </section>
     </div>
   )

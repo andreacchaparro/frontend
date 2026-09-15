@@ -30,3 +30,17 @@ export async function downloadFile(url: string): Promise<void> {
   link.remove()
   URL.revokeObjectURL(objectUrl)
 }
+
+// Descarga un objeto ya disponible en memoria como archivo .json (sin
+// pedirlo de nuevo al backend).
+export function downloadJson(data: unknown, filename: string): void {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+  const objectUrl = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = objectUrl
+  link.download = filename
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  URL.revokeObjectURL(objectUrl)
+}

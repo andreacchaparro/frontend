@@ -8,6 +8,15 @@ import { DashboardIndicadores } from '@/pages/DashboardIndicadores'
 import { Participacion } from '@/pages/Participacion'
 import { InsightsIA } from '@/pages/InsightsIA'
 import { Educacion } from '@/pages/Educacion'
+import { EtlDatos } from '@/pages/EtlDatos'
+import { EtlReglasCampo } from '@/pages/EtlReglasCampo'
+import { EtlReglaDetalle } from '@/pages/EtlReglaDetalle'
+import { EtlReglaValidacion } from '@/pages/EtlReglaValidacion'
+import { EtlMapeo } from '@/pages/EtlMapeo'
+import { EtlUpload } from '@/pages/EtlUpload'
+import { DataGestion } from '@/pages/DataGestion'
+import { DbModelo } from '@/pages/DbModelo'
+import { Team } from '@/pages/Team'
 import { useThemeStore } from '@/store/useThemeStore'
 
 const queryClient = new QueryClient({
@@ -37,6 +46,15 @@ export default function App() {
             <Route path="/reportar" element={<Participacion />} />
             <Route path="/insights" element={<InsightsIA />} />
             <Route path="/educacion" element={<Educacion />} />
+            <Route path="/etl/datos" element={<EtlDatos />} />
+            <Route path="/etl/reglas/campo" element={<EtlReglasCampo />} />
+            <Route path="/etl/reglas/detalle" element={<EtlReglaDetalle />} />
+            <Route path="/etl/reglas/validacion" element={<EtlReglaValidacion />} />
+            <Route path="/etl/mapeo" element={<EtlMapeo />} />
+            <Route path="/etl/upload" element={<EtlUpload />} />
+            <Route path="/data" element={<DataGestion />} />
+            <Route path="/db" element={<DbModelo />} />
+            <Route path="/team" element={<Team />} />
           </Routes>
         </AppLayout>
       </BrowserRouter>
