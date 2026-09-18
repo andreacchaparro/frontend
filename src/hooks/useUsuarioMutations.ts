@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { usuariosService } from '@/services/usuarios.service'
+import { useAuthStore } from '@/store/useAuthStore'
 import type { InstitucionPayload, UsuarioPayload } from '@/types'
 
 export function useInstituciones() {
@@ -18,8 +19,9 @@ export function useRolesUsuario() {
 
 export function useCrearUsuario() {
   const queryClient = useQueryClient()
+  const token = useAuthStore((s) => s.token)
   return useMutation({
-    mutationFn: (payload: UsuarioPayload) => usuariosService.crearUsuario(payload),
+    mutationFn: (payload: UsuarioPayload) => usuariosService.crearUsuario(token ?? '', payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['responsables'] })
       queryClient.invalidateQueries({ queryKey: ['usuarios'] })
@@ -29,9 +31,10 @@ export function useCrearUsuario() {
 
 export function useActualizarUsuario() {
   const queryClient = useQueryClient()
+  const token = useAuthStore((s) => s.token)
   return useMutation({
     mutationFn: ({ id, payload }: { id: number; payload: UsuarioPayload }) =>
-      usuariosService.actualizarUsuario(id, payload),
+      usuariosService.actualizarUsuario(token ?? '', id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['responsables'] })
       queryClient.invalidateQueries({ queryKey: ['usuarios'] })
@@ -41,8 +44,9 @@ export function useActualizarUsuario() {
 
 export function useEliminarUsuario() {
   const queryClient = useQueryClient()
+  const token = useAuthStore((s) => s.token)
   return useMutation({
-    mutationFn: (id: number) => usuariosService.eliminarUsuario(id),
+    mutationFn: (id: number) => usuariosService.eliminarUsuario(token ?? '', id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['responsables'] })
       queryClient.invalidateQueries({ queryKey: ['usuarios'] })

@@ -11,7 +11,8 @@ interface Props {
   fuentes: FuenteDatos[]
   fuentesLoading: boolean
   fuenteActualId: number | null
-  descargarUrl: string
+  onDescargar: () => void
+  descargando: boolean
   volverHref: string
   volverLabel: string
 }
@@ -25,7 +26,8 @@ export function DatosToolbar({
   fuentes,
   fuentesLoading,
   fuenteActualId,
-  descargarUrl,
+  onDescargar,
+  descargando,
   volverHref,
   volverLabel,
 }: Props) {
@@ -49,12 +51,14 @@ export function DatosToolbar({
           isLoading={fuentesLoading}
           fuenteActualId={fuenteActualId}
         />
-        <a
-          href={descargarUrl}
-          className="bg-surface border border-border text-fg-muted hover:text-fg text-xs font-semibold px-3.5 py-2 rounded-md transition-colors"
+        <button
+          type="button"
+          onClick={onDescargar}
+          disabled={descargando}
+          className="bg-surface border border-border text-fg-muted hover:text-fg text-xs font-semibold px-3.5 py-2 rounded-md transition-colors disabled:opacity-60"
         >
-          ⬇ Descargar Excel
-        </a>
+          {descargando ? 'Descargando…' : '⬇ Descargar Excel'}
+        </button>
         <Link
           to={volverHref}
           className="bg-surface border border-border text-fg-muted hover:text-fg text-xs font-semibold px-3.5 py-2 rounded-md transition-colors"

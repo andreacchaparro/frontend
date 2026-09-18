@@ -604,6 +604,7 @@ export interface EntidadCatalogo {
 export interface GrupoCatalogo {
   nombre: string
   icono: string
+  color: string
   entidades: EntidadCatalogo[]
 }
 

@@ -12,6 +12,10 @@ async function parseErrorMessage(res: Response, fallback: string): Promise<strin
   return fallback
 }
 
+function authHeaders(token: string) {
+  return { Authorization: `Token ${token}`, 'Content-Type': 'application/json' }
+}
+
 export const usuariosService = {
   listUsuarios: async (): Promise<Responsable[]> => {
     const res = await fetch(`${API_BASE}/usuarios/`)
@@ -34,28 +38,31 @@ export const usuariosService = {
     return Array.isArray(data) ? data : (data.results ?? [])
   },
 
-  crearUsuario: async (payload: UsuarioPayload): Promise<Responsable> => {
+  crearUsuario: async (token: string, payload: UsuarioPayload): Promise<Responsable> => {
     const res = await fetch(`${API_BASE}/usuarios/`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders(token),
       body: JSON.stringify(payload),
     })
     if (!res.ok) throw new Error(await parseErrorMessage(res, `Error ${res.status}`))
     return res.json() as Promise<Responsable>
   },
 
-  actualizarUsuario: async (id: number, payload: UsuarioPayload): Promise<Responsable> => {
+  actualizarUsuario: async (token: string, id: number, payload: UsuarioPayload): Promise<Responsable> => {
     const res = await fetch(`${API_BASE}/usuarios/${id}/`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders(token),
       body: JSON.stringify(payload),
     })
     if (!res.ok) throw new Error(await parseErrorMessage(res, `Error ${res.status}`))
     return res.json() as Promise<Responsable>
   },
 
-  eliminarUsuario: async (id: number): Promise<void> => {
-    const res = await fetch(`${API_BASE}/usuarios/${id}/`, { method: 'DELETE' })
+  eliminarUsuario: async (token: string, id: number): Promise<void> => {
+    const res = await fetch(`${API_BASE}/usuarios/${id}/`, {
+      method: 'DELETE',
+      headers: { Authorization: `Token ${token}` },
+    })
     if (!res.ok && res.status !== 204) throw new Error(await parseErrorMessage(res, `Error ${res.status}`))
   },
 

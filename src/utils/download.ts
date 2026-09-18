@@ -1,9 +1,13 @@
 // Descarga el archivo servido por `url`. Se hace fetch primero (en vez de
 // navegar directo) para poder detectar un 404 con {"error": "..."} del
 // backend y mostrarlo en vez de dejar que el navegador intente abrir el JSON
-// como si fuera el archivo.
-export async function downloadFile(url: string): Promise<void> {
-  const res = await fetch(url)
+// como si fuera el archivo. `token`, si se pasa, se envía como header
+// `Authorization` — necesario para endpoints protegidos con `requiere_nivel`,
+// ya que una navegación de `<a href>` normal no puede llevar ese header.
+export async function downloadFile(url: string, token?: string | null): Promise<void> {
+  const res = await fetch(url, {
+    headers: token ? { Authorization: `Token ${token}` } : undefined,
+  })
 
   if (!res.ok) {
     let mensaje = `Error ${res.status} al descargar el archivo.`

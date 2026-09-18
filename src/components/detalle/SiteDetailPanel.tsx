@@ -3,6 +3,7 @@ import { useQueries } from '@tanstack/react-query'
 import { useDatosProyecto } from '@/hooks/useDatosProyecto'
 import { datosService } from '@/services/datos.service'
 import { downloadFile } from '@/utils/download'
+import { useAuthStore } from '@/store/useAuthStore'
 import type { SitioFeature, VistaDatos } from '@/types'
 
 interface Props {
@@ -36,6 +37,7 @@ const MODELO_COLORS = [
 ]
 
 export function SiteDetailPanel({ sitio, onClose }: Props) {
+  const token = useAuthStore((s) => s.token)
   const [tablaOpen, setTablaOpen] = useState(true)
   const proyectosDelSitio = sitio.properties.proyectos
   const [proyectoId, setProyectoId] = useState<number | null>(proyectosDelSitio[0]?.id ?? null)
@@ -65,7 +67,7 @@ export function SiteDetailPanel({ sitio, onClose }: Props) {
     setExportando(true)
     setExportError(null)
     try {
-      await downloadFile(datosService.getExportarProyectoUrl(proyectoId))
+      await downloadFile(datosService.getExportarProyectoUrl(proyectoId), token)
     } catch (err) {
       setExportError(err instanceof Error ? err.message : 'No se pudo descargar el archivo.')
     } finally {

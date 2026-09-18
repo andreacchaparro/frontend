@@ -6,11 +6,6 @@ import type { CampoDestino, CatalogoData, EntidadCatalogo, GrupoCatalogo } from 
 // se copia a este archivo cada vez que se despliega una nueva versión.
 export const CATALOGO = catalogoJson as CatalogoData
 
-export const GRUPO_PALETTE = [
-  '#475569', '#16a34a', '#d97706', '#db2777',
-  '#7c3aed', '#2563eb', '#ea580c', '#0891b2', '#dc2626',
-]
-
 export interface EntidadInfo {
   nombre: string
   groupName: string
@@ -26,9 +21,13 @@ export interface RelacionCatalogo {
   field: string
 }
 
+// El color de cada grupo viene de `catalogo.json` (campo `color`, definido en
+// `GRUPOS_CATALOGO` en el backend — app/catalogo/generator.py), no de una
+// paleta local: así el mismo color se usa tanto en este diagrama ERD como en
+// el Excel exportado desde /etl/datos.
 function colorPorGrupo(grupos: GrupoCatalogo[]): Map<string, string> {
   const mapa = new Map<string, string>()
-  grupos.forEach((g, idx) => mapa.set(g.nombre, GRUPO_PALETTE[idx % GRUPO_PALETTE.length]))
+  grupos.forEach((g) => mapa.set(g.nombre, g.color))
   return mapa
 }
 
