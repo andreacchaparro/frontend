@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from 'react'
+import { useMemo, useReducer, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { DatosTabs, TABS, type TabDef } from '@/components/etl-datos/DatosTabs'
 import { DatosToolbar } from '@/components/etl-datos/DatosToolbar'
@@ -10,6 +10,8 @@ import { useDatosCarga } from '@/hooks/useDatosCarga'
 import { useFuentesDropdown } from '@/hooks/useFuentesDropdown'
 import { useReglasAutollenado } from '@/hooks/useReglasAutollenado'
 import { datosService } from '@/services/datos.service'
+import { downloadFile } from '@/utils/download'
+import { useAuthStore } from '@/store/useAuthStore'
 
 const LIMITE = 200
 
@@ -51,6 +53,9 @@ function reducer(state: State, action: Action): State {
 }
 
 export function EtlDatos() {
+  const token = useAuthStore((s) => s.token)
+  const [descargando, setDescargando] = useState(false)
+  const [descargarError, setDescargarError] = useState<string | null>(null)
   const [searchParams] = useSearchParams()
   const proyectoIdParam = searchParams.get('proyecto')
   const fuenteIdParam = searchParams.get('fuente')
@@ -108,6 +113,19 @@ export function EtlDatos() {
   const volverHref = fuenteId != null ? `/etl/upload?fuente=${fuenteId}` : '/data'
   const volverLabel = fuenteId != null ? '← Volver al ETL' : '← Volver a Gestión de Datos'
 
+  const handleDescargar = async () => {
+    if (!descargarUrl) return
+    setDescargando(true)
+    setDescargarError(null)
+    try {
+      await downloadFile(descargarUrl, token)
+    } catch (err) {
+      setDescargarError(err instanceof Error ? err.message : 'No se pudo descargar el archivo.')
+    } finally {
+      setDescargando(false)
+    }
+  }
+
   return (
     <div className="flex-1 p-6 flex flex-col gap-1 max-w-[1400px] mx-auto w-full">
       <div>
@@ -128,10 +146,17 @@ export function EtlDatos() {
         fuentes={dropdownData?.fuentes ?? []}
         fuentesLoading={fuentesLoading}
         fuenteActualId={fuenteId}
-        descargarUrl={descargarUrl}
+        onDescargar={handleDescargar}
+        descargando={descargando}
         volverHref={volverHref}
         volverLabel={volverLabel}
       />
+
+      {descargarError && (
+        <div className="bg-red-100 dark:bg-red-950/40 text-red-700 dark:text-red-400 rounded-lg px-4 py-3.5 text-sm my-5">
+          {descargarError}
+        </div>
+      )}
 
       {faltaOrigen ? (
         <div className="bg-red-100 dark:bg-red-950/40 text-red-700 dark:text-red-400 rounded-lg px-4 py-3.5 text-sm my-5">

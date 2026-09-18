@@ -1,26 +1,14 @@
 import { Link } from 'react-router-dom'
 import { DatosTableFilterInput } from './DatosTableFilterInput'
+import { ENTIDAD_MAP } from '@/utils/catalogoModel'
 import type { ColumnaDatos, FilaDatos, ReglaAutollenado } from '@/types'
 
-// Colores por modelo, para agrupar visualmente las columnas de la tabla
-// (cada modelo de la cadena SubmuestraGEI → … → Sitio tiene su color).
-// Se mantienen los hex exactos del prototipo — paleta propia de esta tabla,
-// no se mapea a los design tokens del resto del frontend.
-const COLORES_MODELO: Record<string, string> = {
-  SubmuestraGEI: '#0d4f40',
-  MuestraGEI: '#18735d',
-  UnidadMedida: '#1a6e9b',
-  MuestraAmbiental: '#6b4f9e',
-  Equipo: '#b45309',
-  UnidadMuestreo: '#1a6e9b',
-  UnidadExperimental: '#166534',
-  UnidadMuestreoTipo: '#65a30d',
-  Sitio: '#7c3aed',
-  Parcela: '#0e7490',
-  MuestraMOM: '#92400e',
-  SubmuestraSuelo: '#854d0e',
-  IndividuoArboreo: '#166534',
-  MuestraBiomasa: '#15803d',
+// Color por modelo, para agrupar visualmente las columnas de la tabla (cada
+// modelo de la cadena SubmuestraGEI → … → Sitio tiene su color) — mismo
+// color de categoría que usa el diagrama ERD de /db y el Excel exportado,
+// vía `catalogo.json` (ver `COLOR_POR_MODELO` en el backend).
+function colorDeModelo(modelo: string): string {
+  return ENTIDAD_MAP[modelo]?.color ?? '#374151'
 }
 
 interface Props {
@@ -71,7 +59,7 @@ export function DatosTable({
                 key={i}
                 colSpan={g.count}
                 className="px-3 py-1.5 text-left text-[11px] font-extrabold uppercase tracking-wide text-white"
-                style={{ background: COLORES_MODELO[g.modelo] || '#374151' }}
+                style={{ background: colorDeModelo(g.modelo) }}
               >
                 {g.modelo}
               </th>

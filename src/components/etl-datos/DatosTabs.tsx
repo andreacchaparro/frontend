@@ -9,9 +9,9 @@ export interface TabDef {
 // vista aparte — la exportación del backend (_HOJAS_EXPORT) usa la misma
 // partición.
 export const TABS: TabDef[] = [
+  { id: 'unidad_muestreo', label: 'Unidad de Muestreo / Experimental', vista: 'unidad_muestreo', gas: null },
   { id: 'CO2', label: 'CO₂', vista: 'submuestra_gei', gas: 'CO2' },
   { id: 'CH4', label: 'CH₄', vista: 'submuestra_gei', gas: 'CH4' },
-  { id: 'unidad_muestreo', label: 'Unidad de Muestreo / Experimental', vista: 'unidad_muestreo', gas: null },
   { id: 'clima', label: 'Clima', vista: 'clima', gas: null },
   { id: 'mom', label: 'MOM', vista: 'mom', gas: null },
   { id: 'cos', label: 'COS', vista: 'cos', gas: null },
